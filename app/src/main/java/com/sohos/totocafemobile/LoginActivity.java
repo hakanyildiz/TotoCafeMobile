@@ -4,6 +4,8 @@ package com.sohos.totocafemobile;
  * Created by hakan on 30.12.2015.
  */
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +21,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class LoginActivity extends AppCompatActivity {
+    public static final String PREF_NAME = "COOKIE";
+
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
@@ -53,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
+        //Login Success e eklenir.
+        saveToLoggedInPreferences(getBaseContext(),"logged_in",true);
+
         Log.d(TAG, "Login");
 
         if (!validate()) {
@@ -135,5 +142,14 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+    //COOKIE adlı preference a login basarılı olursa logged_in  true ekliyoruz
+    public static void saveToLoggedInPreferences(Context context, String preferenceName, boolean preferenceValue){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+
+        editor.putBoolean(preferenceName, preferenceValue);
+        editor.apply();
+
     }
 }

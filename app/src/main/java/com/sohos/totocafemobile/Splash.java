@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
  * Created by dilkom71 on 3.12.2015.
  */
 public class Splash extends AppCompatActivity {
+    public static final String PREF_NAME = "COOKIE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,8 @@ public class Splash extends AppCompatActivity {
                 public void onAnimationEnd(Animation animation) {
                     iv.startAnimation(an2);
                     finish();
-                    Intent i = new Intent(getBaseContext(),LoginActivity.class);
-                    startActivity(i);
+                    CheckLogged();
+
                 }
 
                 @Override
@@ -80,4 +82,17 @@ public class Splash extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    private void CheckLogged(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME,MODE_PRIVATE);
+        Intent i;
+        if(sharedPreferences.getBoolean("logged_in",false)){ // NO LOGGED
+            i = new Intent(getBaseContext(),LoginActivity.class);
+        }
+        else{ //user already logged
+            i = new Intent(getBaseContext(),MainActivity.class);
+        }
+        startActivity(i);
+    }
+
 }

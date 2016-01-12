@@ -10,13 +10,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+/*
+* ******BUNDLE KULLANIMI **********
+* Android programlamada activiyler arası data geçişi için bundle kullanılır.
+ Bundle yardımıyla bir activitye
+de mevcut olan data başka bir activitye gönderilebilir.
 
+//////////////MAIN ACTIVITY
+Intent i = new Intent(MainActivity.this, SecondActivity.class);
+
+Bundle toMain = new Bundle();
+fromMain.putString("info", "Please subscribe me");
+i.putExtras(fromMain);
+
+startActivity(i);
+
+////////SECOND ACTIVITY
+Bundle fromMain = getIntent().getExtras();
+
+String myValue = fromMain.getString("info");
+*
+* */
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_appbar);
 
          toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
