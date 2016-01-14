@@ -173,34 +173,5 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
         }
     }
 
-    /* STATIC FRAGMENT CLASS FOR TABS */
-    public static class MyFragment extends Fragment{
-        private TextView textView;
-        public static MyFragment getInstance(int position){
 
-            MyFragment myFragment = new MyFragment();
-
-            Bundle args =new Bundle();
-            args.putInt("position",position);
-            myFragment.setArguments(args);
-
-            return  myFragment;
-        }
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-            View layout = inflater.inflate(R.layout.fragment_my,container,false);
-
-            textView = (TextView) layout.findViewById(R.id.position);
-            Bundle bundle = getArguments();
-            if(bundle!= null)
-            {
-                textView.setText("You selected" + bundle.getInt("position"));
-            }
-
-
-            return layout;
-        }
-    }//end static class MyFragment
 }
