@@ -1,5 +1,4 @@
-package com.sohos.totocafemobile;
-
+package com.sohos.totocafemobile.pojo;
 /**
  * Created by hakan on 12.01.2016.
  */
