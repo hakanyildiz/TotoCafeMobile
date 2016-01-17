@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
 
     private void setupDrawer() {
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
-
         mContainerToolbar = (ViewGroup) findViewById(R.id.container_app_bar);
         //set the Toolbar as ActionBar
         setSupportActionBar(mToolbar);

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.sohos.totocafemobile.pojo.CategoryTable;
+import com.sohos.totocafemobile.pojo.Product;
 import com.sohos.totocafemobile.pojo.UserDetailsTable;
 
 public class JSONParser {
@@ -67,6 +68,35 @@ public class JSONParser {
 		return arrayList;
 	}
 
+    public ArrayList<Product> parseProduct(JSONObject object)
+    {
+        ArrayList<Product> arrayList = new ArrayList<Product>();
+        try{
+            JSONArray jsonArray = object.getJSONArray("Value");
+            JSONObject jsonObj = null;
+
+            for(int i = 0; i < jsonArray.length(); i++)
+            {
+                jsonObj = jsonArray.getJSONObject(i);
+                arrayList.add(new Product(
+                                jsonObj.getInt("ProductID"),
+                                jsonObj.getString("ProductName"),
+                                jsonObj.getString("Detail"),
+                                jsonObj.getInt("Price"),
+                                jsonObj.getInt("Credit"),
+                                jsonObj.getInt("CategoryID"),
+                                jsonObj.getInt("AvailabilityID")
+                        )
+                );
+            }
+
+            Log.d(myLog , "Products: " + arrayList);
+        }catch(JSONException e){
+            Log.d(myLog , e.getMessage());
+        }
+
+        return arrayList;
+    }
 
     public boolean parseUserAuth(JSONObject object)
     {     boolean userAtuh=false;

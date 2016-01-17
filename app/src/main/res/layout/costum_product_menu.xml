@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/size_byte"
+    android:paddingLeft="@dimen/size_word"
+    android:paddingRight="@dimen/size_word"
+    android:paddingTop="@dimen/size_byte">
+
+    <TextView
+        android:id="@+id/tvProductName"
+        android:text="Product Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:alpha="0.87"
+        android:gravity="left"
+        android:padding="@dimen/size_half_byte"
+        android:textSize="@dimen/size_text_primary" />
+
+    <TextView
+        android:text="Details"
+        android:id="@+id/tvDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tvProductName"
+        android:alpha="0.87"
+        android:padding="@dimen/size_half_byte"
+        android:textSize="@dimen/size_text_secondary" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Price: "
+        android:id="@+id/tvPrice"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Credit: "
+        android:id="@+id/tvCredit"
+        android:layout_below="@+id/tvProductName"
+        android:layout_alignLeft="@+id/tvPrice"
+        android:layout_alignStart="@+id/tvPrice" />
+</RelativeLayout>

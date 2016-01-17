@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="Toto Café" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,6 +55,9 @@
             android:name=".qr.QrController"
             android:label="Qr Controller" ></activity>
 
+        <activity
+            android:name=".activities.ProductActivity"
+            android:label="Product Details" ></activity>
 
     </application>
 
