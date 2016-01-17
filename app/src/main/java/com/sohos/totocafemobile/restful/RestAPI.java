@@ -124,14 +124,14 @@ public class RestAPI {
         return result;
     }
 
-    public JSONObject UserAuthentication(String Email,String Passsword) throws Exception {
+    public JSONObject UserAuthentication(String Email,String Password) throws Exception {
         JSONObject result = null;
         JSONObject o = new JSONObject();
         JSONObject p = new JSONObject();
         o.put("interface","RestAPI");
         o.put("method", "UserAuthentication");
         p.put("Email",mapObject(Email));
-        p.put("Passsword",mapObject(Passsword));
+        p.put("Password",mapObject(Password));
         o.put("parameters", p);
         String s = o.toString();
         String r = load(s);

@@ -1,13 +1,18 @@
 package com.sohos.totocafemobile.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.sohos.totocafemobile.MyApplication;
 import com.sohos.totocafemobile.R;
+import com.sohos.totocafemobile.activities.LoginActivity;
+import com.sohos.totocafemobile.qr.QrCodeReaderActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +28,7 @@ public class FragmentProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private Button btnLogout;
 
     /**
      * Use this factory method to create a new instance of
@@ -63,5 +68,25 @@ public class FragmentProfile extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logoutIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(logoutIntent);
+                MyApplication.saveToPreferences(getContext(),"logged_in", false);
+                MyApplication.saveToPreferences(getContext(),"UserID" , -1);
+                getActivity().finish();
 
+            }
+        });
+    }
+
+    private void goLogout(){
+
+
+
+    }
 }

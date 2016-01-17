@@ -46,6 +46,16 @@
         <activity
             android:name=".activities.SignupActivity"
             android:label="Sign Up" android:theme="@style/AppThemeForLoginAndSignUp"></activity>
+
+        <activity
+            android:name=".qr.QrCodeReaderActivity"
+            android:label="Qr Code Reader"></activity>
+
+        <activity
+            android:name=".qr.QrController"
+            android:label="Qr Controller" ></activity>
+
+
     </application>
 
 </manifest>

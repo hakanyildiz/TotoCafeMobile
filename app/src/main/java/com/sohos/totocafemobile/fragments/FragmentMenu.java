@@ -86,14 +86,14 @@ public class FragmentMenu extends /**
         //volleySingleton = VolleySingleton.getInstance();
         //requestQueue = volleySingleton.getRequestQueue();
         //sendJsonRequest();
-        
+       /*
         boolean menuStatus = MyApplication.readFromPreferences(getActivity(), "menuStatus", false);
         int companyID = MyApplication.readFromPreferences(getActivity(), "companyID", -1);
 
         if (menuStatus) { // true ise demekki qr okuma falan başarılı.. Categorileri gösterme vakti
             getCompaniesFromService(companyID);
         }
-
+        */
     }
 
     private void getCompaniesFromService(int companyID) {

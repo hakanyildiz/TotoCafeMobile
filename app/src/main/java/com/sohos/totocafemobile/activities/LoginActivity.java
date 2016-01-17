@@ -33,7 +33,7 @@ import butterknife.InjectView;
 public class LoginActivity extends AppCompatActivity {
     public static final String PREF_NAME = "COOKIE";
 
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "HAKKE";
     private static final int REQUEST_SIGNUP = 0;
     Context context;
     @InjectView(R.id.input_email) EditText _emailText;
@@ -52,7 +52,15 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                login();
+                //login();
+
+                String email = _emailText.getText().toString();
+                String password = _passwordText.getText().toString();
+
+                // TODO: Implement your own authentication logic here.
+                // Execute the AsyncLogin class
+                new AsyncLogin().execute(email,password);
+
             }
         });
 
@@ -121,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
     protected class AsyncLogin extends AsyncTask<String, JSONObject, Boolean> {
 
         String email=null;
+        String pass = null;
         @Override
         protected Boolean doInBackground(String... params) {
 
@@ -134,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                 JSONParser parser = new JSONParser();
                 userAuth = parser.parseUserAuth(jsonObj);
                 email=params[0];
+                pass = params[1];
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 Log.d("AsyncLogin", e.getMessage());
@@ -152,7 +162,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             // TODO Auto-generated method stub
-
+            Log.d(TAG,"My email:" + email + " My Password: " + pass);
+            Log.d(TAG,"Result from Service for userAuthentication is : "+ result.toString());
             //Check user validity
             if (result) {
                 MyApplication.saveToPreferences(getBaseContext(),"logged_in",true);
@@ -164,6 +175,8 @@ public class LoginActivity extends AppCompatActivity {
                 MyApplication.saveToPreferences(getBaseContext(),"logged_in",false);
                 Toast.makeText(context, "Not valid username/password ",Toast.LENGTH_SHORT).show();
             }
+
+            Log.d(TAG,"Logged in is now : " + MyApplication.readFromPreferences(getBaseContext(),"logged_in",false));
 
         }
 
@@ -205,6 +218,7 @@ public class LoginActivity extends AppCompatActivity {
             //Check user validity
             if (result != -1) {
                 MyApplication.saveToPreferences(context,"UserID",result);
+                Log.d(TAG, "UserID is now : " + MyApplication.readFromPreferences(getBaseContext(), "UserID", -1));
 
                 Intent intent = new Intent(LoginActivity.this,
                         MainActivity.class);
@@ -270,6 +284,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 startActivity(i);
                 */
+                MyApplication.saveToPreferences(getBaseContext(),"logged_in",true);
+                Log.d(TAG, "Loggedin With Anonim is now : " + MyApplication.readFromPreferences(getBaseContext(), "logged_in", false));
+
+                new AsyncGetAnonymousID().execute(android_id);
+
             }
             else // İLK kez giriş. Register yap.
             {
@@ -277,8 +296,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 new AsyncAnonymousRegister().execute(android_id);
             }
-            MyApplication.saveToPreferences(getBaseContext(),"logged_in",true);
-            new AsyncGetAnonymousID().execute(android_id);
+
         }
 
     }
@@ -309,6 +327,12 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
+            MyApplication.saveToPreferences(getBaseContext(),"logged_in",true);
+            Log.d(TAG, "Register: logged with Anonim is now : " + MyApplication.readFromPreferences(getBaseContext(), "logged_in", false));
+
+            new AsyncGetAnonymousID().execute(android_id);
+
+
         }
 
     }
@@ -349,6 +373,7 @@ public class LoginActivity extends AppCompatActivity {
             //Check user validity
             if (result != -1) {
                 MyApplication.saveToPreferences(context,"UserID",result);
+                Log.d(TAG, "anonim.. UserID is now : " + MyApplication.readFromPreferences(getBaseContext(), "UserID", -1));
 
                 Intent intent = new Intent(LoginActivity.this,
                         MainActivity.class);

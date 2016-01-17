@@ -1,36 +1,46 @@
 package com.sohos.totocafemobile.activities;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import android.support.design.widget.FloatingActionButton;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+
 import com.sohos.totocafemobile.R;
+import com.sohos.totocafemobile.anim.SortListener;
+import com.sohos.totocafemobile.fragments.FragmentDrawer;
 import com.sohos.totocafemobile.fragments.FragmentHome;
 import com.sohos.totocafemobile.fragments.FragmentMenu;
 import com.sohos.totocafemobile.fragments.FragmentProfile;
-import com.sohos.totocafemobile.fragments.MyFragment;
-import com.sohos.totocafemobile.fragments.FragmentDrawer;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
+/*
+        Bundle bundle = getIntent().getExtras();
+        String email = "";
+        if(bundle != null){
+            email = bundle.getString("email");
+        }
+        mDrawerFragment.setEmailOfUser(email);
+*/
 /*
 * ******BUNDLE KULLANIMI **********
 * Android programlamada activiyler arası data geçişi için bundle kullanılır.
@@ -51,13 +61,14 @@ Bundle fromMain = getIntent().getExtras();
 String myValue = fromMain.getString("info");
 *
 * */
-public class MainActivity extends ActionBarActivity implements MaterialTabListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements MaterialTabListener, View.OnClickListener {
+
     //int representing our 0th tab corresponding to the Fragment where search results are dispalyed
     public static final int TAB_HOME = 0;
     //int corresponding to our 1st tab corresponding to the Fragment where box office hits are dispalyed
     public static final int TAB_MENU = 1;
     //int corresponding to our 2nd tab corresponding to the Fragment where upcoming movies are displayed
-    public static final int TAB_PROFILE = 2;
+    public static final int TAB_USER = 2;
     //int corresponding to the number of tabs in our Activity
     public static final int TAB_COUNT = 3;
     //int corresponding to the id of our JobSchedulerService
@@ -70,27 +81,38 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     private static final String TAG_SORT_RATINGS = "sortRatings";
     //Run the JobSchedulerService every 2 minutes
     private static final long POLL_FREQUENCY = 28800000;
-  //  private JobScheduler mJobScheduler;
     private Toolbar mToolbar;
     //a layout grouping the toolbar and the tabs together
     private ViewGroup mContainerToolbar;
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
     private ViewPagerAdapter mAdapter;
-    private FloatingActionButton mFAB;
-    //private FloatingActionMenu mFABMenu;
     private FragmentDrawer mDrawerFragment;
     Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_appbar);
+        setContentView(R.layout.activity_main);
+
         setupTabs();
+        setupDrawer();
+
+        /*
+        Bundle bundle = getIntent().getExtras();
+        String email = "";
+        if(bundle != null){
+            email = bundle.getString("email");
+        }
+        mDrawerFragment.setEmailOfUser(email);
+*/
+    }
 
 
+    private void setupDrawer() {
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        mContainerToolbar = (ViewGroup) findViewById(R.id.app_bar);
+
+        mContainerToolbar = (ViewGroup) findViewById(R.id.container_app_bar);
         //set the Toolbar as ActionBar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -98,20 +120,6 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         mDrawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-
-
-        Bundle bundle = getIntent().getExtras();
-        String email = "";
-        if(bundle != null){
-            email = bundle.getString("email");
-        }
-        mDrawerFragment.setEmailOfUser(email);
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
 
@@ -144,6 +152,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                             .setTabListener(this));
         }
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -155,13 +165,13 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_settings){
-            Toast.makeText(this, "Hey you just hit + " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_settings) {
+            Toast.makeText(this, "Hey you just hit + " + item.getTitle(), Toast.LENGTH_SHORT).show();
             return true;
         }
 
-        if(id == R.id.navigate){
-            startActivity(new Intent(this,Splash.class));
+        if (id == R.id.navigate) {
+            startActivity(new Intent(this, Splash.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -185,31 +195,31 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     public void onClick(View v) {
         //call instantiate item since getItem may return null depending on whether the PagerAdapter is of type FragmentPagerAdapter or FragmentStatePagerAdapter
         Fragment fragment = (Fragment) mAdapter.instantiateItem(mPager, mPager.getCurrentItem());
-        /*if (fragment instanceof SortListener) {
+        if (fragment instanceof SortListener) {
 
             if (v.getTag().equals(TAG_SORT_NAME)) {
                 //call the sort by name method on any Fragment that implements sortlistener
-                ((SortListener) fragment).onSortByName();
+                //     ((SortListener) fragment).onSortByName();
             }
             if (v.getTag().equals(TAG_SORT_DATE)) {
                 //call the sort by date method on any Fragment that implements sortlistener
-                ((SortListener) fragment).onSortByDate();
+                //      ((SortListener) fragment).onSortByDate();
             }
             if (v.getTag().equals(TAG_SORT_RATINGS)) {
                 //call the sort by ratings method on any Fragment that implements sortlistener
-                ((SortListener) fragment).onSortByRating();
+                //        ((SortListener) fragment).onSortByRating();
             }
         }
-        */
+
     }
 
 
     /* CREATING PAGER ADAPTER FOR TABS */
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        int icons[] = {R.drawable.ic_action_search,
-                R.drawable.ic_action_trending,
-                R.drawable.ic_action_upcoming};
+        int icons[] = {R.drawable.ic_action_home_white,
+                R.drawable.ic_action_menu_white,
+                R.drawable.ic_action_user_white};
 
         FragmentManager fragmentManager;
 
@@ -228,7 +238,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                 case TAB_MENU:
                     fragment = FragmentMenu.newInstance("", "");
                     break;
-                case TAB_PROFILE:
+                case TAB_USER:
                     fragment = FragmentProfile.newInstance("", "");
                     break;
             }
@@ -250,6 +260,5 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
             return getResources().getDrawable(icons[position]);
         }
     }
-
 
 }

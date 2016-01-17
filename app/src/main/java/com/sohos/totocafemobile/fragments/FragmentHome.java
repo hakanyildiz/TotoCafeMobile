@@ -58,6 +58,8 @@ public class FragmentHome extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -69,6 +71,7 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         btnQrReader = (Button) view.findViewById(R.id.btnQrReader);
@@ -76,8 +79,10 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity() , QrCodeReaderActivity.class);
-
+                startActivity(i);
             }
         });
     }
+
+
 }

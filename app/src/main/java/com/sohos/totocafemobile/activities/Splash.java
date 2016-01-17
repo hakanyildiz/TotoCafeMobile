@@ -14,6 +14,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -57,8 +58,8 @@ public class Splash extends AppCompatActivity {
 
         }
         else {
-            //usingAnimation(iv,an,an2);
-            usingThread();
+            usingAnimation(iv, an, an2);
+            //usingThread();
         }
 
     }
@@ -122,7 +123,12 @@ public class Splash extends AppCompatActivity {
         Intent i;
         //if(sharedPreferences.getBoolean("logged_in",false)){ // NO LOGGED
 
-        if(MyApplication.readFromPreferences(context,"logged_in",false))
+        boolean result = MyApplication.readFromPreferences(context,"logged_in",false);
+
+        Log.d("HAKKE", "My current logged_in SharedPreferences is : " + result);
+
+
+        if(result == false)
         {
             i = new Intent(getBaseContext(),LoginActivity.class);
         }

@@ -72,6 +72,7 @@ public class JSONParser {
     {     boolean userAtuh=false;
         try {
             userAtuh= object.getBoolean("Value");
+            Log.d("HAKKE", "parseUserAuth: " +  userAtuh);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             Log.d("JSONParser => parseUserAuth", e.getMessage());

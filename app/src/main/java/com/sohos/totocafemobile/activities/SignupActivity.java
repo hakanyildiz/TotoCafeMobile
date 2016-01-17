@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class SignupActivity extends AppCompatActivity {
-    private static final String TAG = "SignupActivity";
+    private static final String TAG = "HAKKE";
 
     @InjectView(R.id.input_name) EditText etName;
     @InjectView(R.id.input_surname) EditText etSurname;
@@ -114,13 +115,13 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         btnSignup.setEnabled(false);
-
+        /*
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Base);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-
+*/
         String name = etName.getText().toString();
         String surname = etSurname.getText().toString();
         String email = etEmail.getText().toString();
@@ -139,6 +140,7 @@ public class SignupActivity extends AppCompatActivity {
         // TODO: Implement your own signup logic here.
         new AsyncCreateUser().execute(userDetail);
 
+        /*
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -149,6 +151,7 @@ public class SignupActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+        */
     }
 
 
@@ -217,13 +220,12 @@ public class SignupActivity extends AppCompatActivity {
 
             //Check user validity
             if (result != -1) {
+                MyApplication.saveToPreferences(context, "logged_in", true);
                 MyApplication.saveToPreferences(context, "UserID", result);
-
+                Log.d(TAG, "Registered User ID is : " +  MyApplication.readFromPreferences(context,"UserID", -1));
                 Intent intent = new Intent(SignupActivity.this,
                         MainActivity.class);
-
                 //MyApplication.createBundleSendingEmail(email, intent);
-
                 startActivity(intent);
             }
             else
