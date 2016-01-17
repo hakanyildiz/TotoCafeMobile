@@ -1,16 +1,14 @@
-package com.sohos.totocafemobile;
+package com.sohos.totocafemobile.activities;
 
 
 /**
  * Created by hakan on 30.12.2015.
  */
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,16 +18,22 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.sohos.totocafemobile.MyApplication;
+import com.sohos.totocafemobile.R;
+import com.sohos.totocafemobile.activities.LoginActivity;
+import com.sohos.totocafemobile.activities.MainActivity;
+
 /**
  * Created by dilkom71 on 3.12.2015.
  */
 public class Splash extends AppCompatActivity {
     public static final String PREF_NAME = "COOKIE";
-
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        context = this;
         final ImageView iv = (ImageView) findViewById(R.id.imageView);
         final Animation an = AnimationUtils.loadAnimation(getBaseContext(),R.anim.rotate);
         final Animation an2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.abc_fade_out);
@@ -38,7 +42,7 @@ public class Splash extends AppCompatActivity {
             //Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
 
             AlertDialog.Builder builder =  new AlertDialog.Builder(this ,R.style.AppCompatAlertDialogStyle);
-                      builder.setIcon(android.R.drawable.ic_dialog_alert);
+                    builder.setIcon(android.R.drawable.ic_dialog_alert);
                     builder.setTitle("Closing the App");
                     builder.setMessage("No Internet Connection,check your settings");
                     builder.setPositiveButton("Close", new DialogInterface.OnClickListener()
@@ -53,29 +57,59 @@ public class Splash extends AppCompatActivity {
 
         }
         else {
-            iv.startAnimation(an);
-            an.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    iv.startAnimation(an2);
-                    finish();
-                    CheckLogged();
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
+            //usingAnimation(iv,an,an2);
+            usingThread();
         }
 
     }
+
+    private void usingAnimation(final ImageView iv,final Animation an ,final Animation an2){
+        iv.startAnimation(an);
+        an.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                iv.startAnimation(an2);
+                finish();
+                CheckLogged();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+    private void usingThread(){
+        /****** Create Thread that will sleep for 5 seconds *************/
+        Thread background = new Thread() {
+            public void run() {
+
+                try {
+                    // Thread will sleep for 5 seconds
+                    sleep(5*1000);
+
+                    // After 5 seconds redirect to another intent
+                    CheckLogged();
+
+                    //Remove activity
+                    finish();
+
+                } catch (Exception e) {
+
+                }
+            }
+        };
+
+        // start thread
+        background.start();
+    }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(getApplication().CONNECTIVITY_SERVICE);
@@ -83,10 +117,13 @@ public class Splash extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private void CheckLogged(){
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME,MODE_PRIVATE);
+    public void CheckLogged(){
+        //SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME,MODE_PRIVATE);
         Intent i;
-        if(sharedPreferences.getBoolean("logged_in",false)){ // NO LOGGED
+        //if(sharedPreferences.getBoolean("logged_in",false)){ // NO LOGGED
+
+        if(MyApplication.readFromPreferences(context,"logged_in",false))
+        {
             i = new Intent(getBaseContext(),LoginActivity.class);
         }
         else{ //user already logged
@@ -94,5 +131,7 @@ public class Splash extends AppCompatActivity {
         }
         startActivity(i);
     }
+
+
 
 }

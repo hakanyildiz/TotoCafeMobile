@@ -3,7 +3,7 @@ package com.sohos.totocafemobile.pojo;
  * Created by hakan on 12.01.2016.
  */
 public class Information {
-    int iconId;
-    String title;
+    public int iconId;
+    public String title;
 
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="12dp"
+        android:id="@+id/tvInfo"
+        android:gravity="center"
+        android:textSize="18dip"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="QR INFORMATIONS" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginTop="12dp"
+        android:id="@+id/tvDetails"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:textSize="14dip"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="NON" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_below="@+id/tvInfo"
+        android:id="@+id/btnQrSender"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:text="OKEY, SEND REQUEST" />
+
+</LinearLayout>

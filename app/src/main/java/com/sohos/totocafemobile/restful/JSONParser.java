@@ -11,6 +11,9 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.sohos.totocafemobile.pojo.CategoryTable;
+import com.sohos.totocafemobile.pojo.UserDetailsTable;
+
 public class JSONParser {
 	public static final String myLog = "Hakke";
     public JSONParser()
@@ -95,5 +98,18 @@ public class JSONParser {
         return userDetail;
 
     }
+
+    public int parseGetUserID(JSONObject object){
+        int userID = -1;
+        try{
+            userID = object.getInt("Value");
+
+        } catch (JSONException e) {
+            Log.d("JSONParser => parseGetUserID", e.getMessage());
+        }
+        return userID;
+    }
+
+
 
 }

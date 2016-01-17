@@ -1,4 +1,4 @@
-package com.sohos.totocafemobile;
+package com.sohos.totocafemobile.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.sohos.totocafemobile.R;
 import com.sohos.totocafemobile.network.VolleySingleton;
 
 /* STATIC FRAGMENT CLASS FOR TABS */

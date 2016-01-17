@@ -6,16 +6,14 @@
     android:clickable="true"
     android:orientation="horizontal">
 
-
     <ImageView
-
         android:id="@+id/listIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_next" />
+        android:src="@drawable/ic_number1" />
 
     <TextView
         android:id="@+id/listText"
@@ -24,6 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="72dp"
-        android:text="Dummy Text" />
+        android:text="Dummy Text"
+        android:textColor="@color/colorSecondaryText" />
 
 </RelativeLayout>

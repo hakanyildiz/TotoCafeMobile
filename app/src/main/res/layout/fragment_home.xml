@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sohos.totocafemobile.fragments.FragmentHome">
+
+    <RelativeLayout
+        android:id="@+id/home_relative"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginTop="24dp"
+            android:id="@+id/tvInfo"
+            android:gravity="center"
+            android:textSize="18dip"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Firstly, you should be read Qr code for  sitting table :)" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_below="@+id/tvInfo"
+            android:id="@+id/btnQrReader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimaryDark"
+            android:text="CLICK OPEN QR READER" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/home_linear"
+        android:visibility="invisible"
+
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button Var Bırada"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

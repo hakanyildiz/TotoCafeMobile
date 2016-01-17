@@ -1,6 +1,8 @@
 /* JSON API for totoCafe Android Appliation */
 package com.sohos.totocafemobile.restful;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,7 +48,7 @@ public class RestAPI {
     private String load(String contents) throws IOException {
         URL url = new URL(urlString);
 		
-		Log.d("myURL",url.toString());
+		Log.d("myURL", url.toString());
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("POST");
@@ -191,6 +193,20 @@ public class RestAPI {
         o.put("interface","RestAPI");
         o.put("method", "GetAnonymousID");
         p.put("DeviceID",mapObject(DeviceID));
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+
+    public JSONObject GetUserID(String email) throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "GetUserID");
+        p.put("email",mapObject(email));
         o.put("parameters", p);
         String s = o.toString();
         String r = load(s);
