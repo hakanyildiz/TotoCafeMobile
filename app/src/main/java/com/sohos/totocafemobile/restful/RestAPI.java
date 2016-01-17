@@ -227,7 +227,24 @@ public class RestAPI {
         result = new JSONObject(r);
         return result;
     }
-
+	
+	public JSONObject InsertToOrder(double amount,double ControllerID,double ProductID,String OrderDetails) throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "InsertToOrder");
+        p.put("amount",mapObject(amount));
+        p.put("ControllerID",mapObject(ControllerID));
+        p.put("ProductID",mapObject(ProductID));
+        p.put("OrderDetails",mapObject(OrderDetails));
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+	
     public JSONObject InsertUserToCostumerTable(double UserID,double UserTypeID) throws Exception {
         JSONObject result = null;
         JSONObject o = new JSONObject();
