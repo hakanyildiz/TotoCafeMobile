@@ -28,6 +28,7 @@ import com.sohos.totocafemobile.fragments.FragmentDrawer;
 import com.sohos.totocafemobile.fragments.FragmentHome;
 import com.sohos.totocafemobile.fragments.FragmentMenu;
 import com.sohos.totocafemobile.fragments.FragmentProfile;
+import com.sohos.totocafemobile.ordering.ShoppingCartActivity;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
@@ -170,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
         }
 
         if (id == R.id.navigate) {
-            startActivity(new Intent(this, Splash.class));
+            startActivity(new Intent(this, ShoppingCartActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

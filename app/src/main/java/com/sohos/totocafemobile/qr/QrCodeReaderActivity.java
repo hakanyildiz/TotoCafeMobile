@@ -41,8 +41,8 @@ public class QrCodeReaderActivity  extends AppCompatActivity implements ZXingSca
     @Override
     public void handleResult(Result rawResult) {
         // Do something with the result here
-        Log.v("TAG", rawResult.getText()); // Prints scan results
-        Log.v("TAG", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
+        Log.v("HAKKE", rawResult.getText()); // Prints scan results
+        Log.v("HAKKE", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
         Intent intent = new Intent(QrCodeReaderActivity.this, QrController.class ); // Simdilik Deneme
 

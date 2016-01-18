@@ -3,10 +3,12 @@ package com.sohos.totocafemobile.pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sohos.totocafemobile.ordering.Saleable;
+
 /**
  * Created by hakan on 15.01.2016.
  */
-public class Product implements Parcelable{
+public class Product implements Parcelable, Saleable {
 	private int ProductID;
     private String ProductName;
     private String Detail;
@@ -66,11 +68,6 @@ public class Product implements Parcelable{
     public void setProductID(int ProductID) {
         this.ProductID = ProductID;
     }
-	
-	/* ProductName */
-    public String getProductName() {
-        return ProductName;
-    }
 
     public void setProductName(String ProductName) {
         this.ProductName = ProductName;
@@ -84,12 +81,7 @@ public class Product implements Parcelable{
     public void setDetail(String Detail) {
         this.Detail = Detail;
     }
-	
-	
-	/* Price */
-	public float getPrice() {
-        return Price;
-    }
+
 
     public void setPrice(float Price) {
         this.Price = Price;
@@ -138,5 +130,15 @@ public class Product implements Parcelable{
         dest.writeInt(CategoryID);
         dest.writeInt(AvailabilityID);
 
+    }
+
+    @Override
+    public float getPrice() {
+        return Price;
+    }
+
+    @Override
+    public String getProductName() {
+        return ProductName;
     }
 }

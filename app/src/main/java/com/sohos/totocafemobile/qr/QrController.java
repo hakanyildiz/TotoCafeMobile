@@ -88,12 +88,18 @@ public class QrController extends AppCompatActivity {
             String[] arr = qrValue.split("-");
             if(arr.length == 3){
                 if(arr[0].equals("TotoCafe") && arr[1].matches("\\d+") && arr[2].matches("\\d+")){
+
+
                     CompanyID = Double.parseDouble(arr[1]);
                     TableID = Double.parseDouble(arr[2]);
                     Toast.makeText(this, arr[0] + " , " + arr[1] + " , " + arr[2], Toast.LENGTH_LONG).show();
                     TextView tvDetails = (TextView) findViewById(R.id.tvDetails);
                     tvDetails.setText("You want to sit "+TableID+" named table \n If it is true :>>");
                     result = true;
+
+                    Log.d("HAKKE", "QrController : CompanyID" + CompanyID + " Table ID: " + TableID);
+                    Log.d("HAKKE", "Current User ID :" + MyApplication.readFromPreferences(context,"UserID" , -1) );
+
 
                 }
                 else{

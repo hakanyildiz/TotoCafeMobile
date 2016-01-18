@@ -56,8 +56,16 @@
             android:label="Qr Controller" ></activity>
 
         <activity
-            android:name=".activities.ProductActivity"
-            android:label="Product Details" ></activity>
+            android:name=".ordering.ProductActivity"
+            android:label="Products" ></activity>
+
+        <activity
+        android:name=".ordering.ProductDetailsActivity"
+        android:label="Product Details" ></activity>
+
+        <activity
+            android:name=".ordering.ShoppingCartActivity"
+            android:label="Shopping Cart" ></activity>
 
     </application>
 

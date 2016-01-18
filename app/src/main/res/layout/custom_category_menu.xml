@@ -6,14 +6,14 @@
 
     <TextView
 
-        android:background="@color/colorAccent"
+        android:background="@color/indigo"
         android:gravity="center"
         android:padding="20dp"
         android:id="@+id/tvCategoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16dip"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="Category Name"
         />
 </RelativeLayout>

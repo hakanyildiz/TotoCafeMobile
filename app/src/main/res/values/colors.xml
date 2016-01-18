@@ -23,4 +23,9 @@
     <color name="colorHighlight">#B6B6B6</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorPrimaryText">#212121</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="red">#F00</color>
+    <color name="productDetailsColor">#9FA8DA</color>
+    <color name="costumProductMenu">#1976D2</color>
+    <color name="colorContinue">#00E676</color>
 </resources>

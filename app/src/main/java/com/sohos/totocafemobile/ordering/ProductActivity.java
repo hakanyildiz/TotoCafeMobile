@@ -1,4 +1,4 @@
-package com.sohos.totocafemobile.activities;
+package com.sohos.totocafemobile.ordering;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.sohos.totocafemobile.R;
-import com.sohos.totocafemobile.adapters.AdapterCategory;
 import com.sohos.totocafemobile.adapters.AdapterProduct;
 import com.sohos.totocafemobile.adapters.CustomItemClickListener;
-import com.sohos.totocafemobile.pojo.CategoryTable;
 import com.sohos.totocafemobile.pojo.Product;
 import com.sohos.totocafemobile.restful.JSONParser;
 import com.sohos.totocafemobile.restful.RestAPI;
@@ -58,12 +55,20 @@ public class ProductActivity extends AppCompatActivity {
 
         recyclerViewProduct = (RecyclerView) findViewById(R.id.recyclerViewProduct);
         recyclerViewProduct.setLayoutManager(new LinearLayoutManager(this));
+
         adapterProduct = new AdapterProduct(this, productList, new CustomItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
                 String productName = productList.get(position).getProductName();
                 //Log.d("HAKKE", "clicked categoryID " + categoryID);
+                Product currentProduct = productList.get(position);
+                Log.d("HAKKE", "selected product: " + productList.get(position).getProductName());
 
+                Intent i = new Intent(ProductActivity.this, ProductDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                i.putExtra("product" , currentProduct);
+                
+                startActivity(i);
 
                 //Intent i = new Intent(context, ProductActivity.class);
                 // bundle.putInt("categoryID" , categoryID);

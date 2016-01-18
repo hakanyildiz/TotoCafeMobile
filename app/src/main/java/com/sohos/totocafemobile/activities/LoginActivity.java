@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
 
+        checkLogged();
+
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -84,6 +86,25 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+    }
+
+    private void checkLogged() {
+
+        //SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME,MODE_PRIVATE);
+        Intent i = null;
+        //if(sharedPreferences.getBoolean("logged_in",false)){ // NO LOGGED
+
+        boolean result = MyApplication.readFromPreferences(context,"logged_in",false);
+
+        Log.d("HAKKE", "My current LOGIN ACTIVITY : logged_in SharedPreferences is : " + result);
+
+
+        if(result){
+            //user already logged
+            i = new Intent(getBaseContext(),MainActivity.class);
+            startActivity(i);
+        }
+
     }
 
     public void login() {

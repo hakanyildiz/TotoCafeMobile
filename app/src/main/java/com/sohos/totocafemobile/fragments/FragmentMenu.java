@@ -1,37 +1,29 @@
 package com.sohos.totocafemobile.fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.sohos.totocafemobile.MyApplication;
 import com.sohos.totocafemobile.R;
-import com.sohos.totocafemobile.activities.MainActivity;
-import com.sohos.totocafemobile.activities.ProductActivity;
+import com.sohos.totocafemobile.ordering.ProductActivity;
 import com.sohos.totocafemobile.adapters.AdapterCategory;
 import com.sohos.totocafemobile.adapters.CustomItemClickListener;
 import com.sohos.totocafemobile.network.VolleySingleton;
+import com.sohos.totocafemobile.ordering.ShoppingCartActivity;
 import com.sohos.totocafemobile.pojo.CategoryTable;
 import com.sohos.totocafemobile.restful.JSONParser;
 import com.sohos.totocafemobile.restful.RestAPI;
@@ -39,9 +31,6 @@ import com.sohos.totocafemobile.restful.RestAPI;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
-
-import javax.xml.transform.ErrorListener;
 
 
 public class FragmentMenu extends Fragment{
@@ -110,8 +99,10 @@ public class FragmentMenu extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =inflater.inflate(R.layout.fragment_menu, container, false);
-        boolean menuStatus = MyApplication.readFromPreferences(getActivity(), "menuStatus", false);
+     //   boolean menuStatus = MyApplication.readFromPreferences(getActivity(), "menuStatus", false);
        // int companyID = MyApplication.readFromPreferences(getActivity(), "companyID", -1);
+
+
 
         listMovieHits = (RecyclerView) layout.findViewById(R.id.listMovieHits);
         listMovieHits.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -137,7 +128,15 @@ public class FragmentMenu extends Fragment{
             getCompaniesFromService(companyID);
         }
 
-*/      getCompaniesFromService(13);
+*/      //getCompaniesFromService(13);
+
+        boolean menuStatus = MyApplication.readFromPreferences(getActivity(), "menuStatus", false);
+
+        int companyID = MyApplication.readFromPreferences(getActivity(), "companyID", -1);
+        Log.d("HAKKE", "my menu status : " + menuStatus + "current Company ID : " + companyID);
+        if (menuStatus) { // true ise demekki qr okuma falan başarılı.. Categorileri gösterme vakti
+            getCompaniesFromService(companyID);
+        }
         return layout;
     }
 

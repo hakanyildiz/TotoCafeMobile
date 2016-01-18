@@ -62,8 +62,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         Product currentProduct = listProduct.get(position);
         Log.d("HAKKE", "Current product : " + currentProduct.getProductName());
         holder.productName.setText(currentProduct.getProductName());
-        holder.credit.setText("Credit: " + currentProduct.getCredit());
-        holder.detail.setText(currentProduct.getDetail());
+        //holder.credit.setText("Credit: " + currentProduct.getCredit());
+        //holder.detail.setText(currentProduct.getDetail());
         holder.price.setText("Price:" + currentProduct.getPrice());
     }
 
@@ -75,16 +75,16 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
 
     public static class ViewHolderProduct extends RecyclerView.ViewHolder{
         private TextView productName;
-        private TextView detail;
+        //private TextView detail;
         private TextView price;
-        private TextView credit;
+        //private TextView credit;
 
         public ViewHolderProduct(View itemView) {
             super(itemView);
             productName = (TextView) itemView.findViewById(R.id.tvProductName);
-            detail = (TextView) itemView.findViewById(R.id.tvDetails);
+          //  detail = (TextView) itemView.findViewById(R.id.tvDetails);
             price = (TextView) itemView.findViewById(R.id.tvPrice);
-            credit = (TextView) itemView.findViewById(R.id.tvCredit);
+            //credit = (TextView) itemView.findViewById(R.id.tvCredit);
 
         }
     }
